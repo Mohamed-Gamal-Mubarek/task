@@ -25,13 +25,13 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // ADMIN
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
-    Route::get('dashboard', [App\Http\Controllers\Admin\AdminController::class, 'index']);
+    Route::get('dashboard', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('admin.dashboard');
 });
 // ./ADMIN
 
 
 // PROVIDER
 Route::group(['prefix' => 'provider', 'middleware' => 'auth'], function () {
-    Route::get('dashboard', [App\Http\Controllers\Provider\ProviderController::class, 'index']);
+    Route::get('dashboard', [App\Http\Controllers\Provider\ProviderController::class, 'index'])->name('provider.dashboard');
 });
 // ./PROVIDER
