@@ -73,7 +73,7 @@ class LoginController extends Controller
             }
 
         } else {
-            echo "something error in here";
+            return redirect()->route('login');
         }
     }
 }
