@@ -19,7 +19,7 @@ class LoginController extends Controller
     | redirecting them to your home screen. The controller uses a trait
     | to conveniently provide its functionality to your applications.
     |
-    */
+     */
 
     use AuthenticatesUsers;
 
@@ -37,8 +37,9 @@ class LoginController extends Controller
             return route('admin.dashboard');
         }
         // ./CASE ADMIN
+
         // CASE PROVIDER
-        elseif(Auth()->user()->role == 2){
+        elseif (Auth()->user()->role == 2) {
             return route('provider.dashboard');
         }
         // CASE PROVIDER
@@ -52,5 +53,28 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function login(Request $request)
+    {
+        # code...
+        $input = $request->all();
+        $this->validate($request,[
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if (Auth::attempt(array('email' => $input['email'], 'password' => $input['password']))) {
+
+            if(auth()->user()->role == 1){
+                return redirect()->route('admin.dashboard');
+            }
+            elseif(auth()->user()->role == 2 ){
+                return redirect()->route('provider.dashboard');
+            }
+
+        }else{
+            echo "something error in here";
+        }
     }
 }
