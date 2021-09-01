@@ -59,21 +59,20 @@ class LoginController extends Controller
     {
         # code...
         $input = $request->all();
-        $this->validate($request,[
-            'email' => 'required|email',
+        $this->validate($request, [
+            'email'    => 'required|email',
             'password' => 'required',
         ]);
 
         if (Auth::attempt(array('email' => $input['email'], 'password' => $input['password']))) {
 
-            if(auth()->user()->role == 1){
+            if (auth()->user()->role == 1) {
                 return redirect()->route('admin.dashboard');
-            }
-            elseif(auth()->user()->role == 2 ){
+            } elseif (auth()->user()->role == 2) {
                 return redirect()->route('provider.dashboard');
             }
 
-        }else{
+        } else {
             echo "something error in here";
         }
     }
