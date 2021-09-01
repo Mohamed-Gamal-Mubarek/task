@@ -26,6 +26,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // ADMIN
 Route::group(['prefix' => 'admin', 'middleware' => ['admin','auth']], function () {
     Route::get('dashboard', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('admin.dashboard');
+    Route::post('provider', [App\Http\Controllers\Admin\ProviderController::class, 'store'])->name('provider.store');
+
 });
 // ./ADMIN
 
@@ -33,5 +35,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin','auth']], function (
 // PROVIDER
 Route::group(['prefix' => 'provider', 'middleware' => ['provider','auth']], function () {
     Route::get('dashboard', [App\Http\Controllers\Provider\ProviderController::class, 'index'])->name('provider.dashboard');
+    Route::resource('location', App\Http\Controllers\Provider\LocationController::class);
 });
 // ./PROVIDER
